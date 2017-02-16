@@ -1,0 +1,56 @@
+{
+  "goods":
+  [
+    {
+      "id":1,
+      "src":"image/01.jpg",
+      "name":"桂格（QUAKER）燕麦片 桂格麦果脆热带水果麦片420g",
+      "color":"颜色：麦果脆420g",
+      "price":42.90,
+      "num":1,
+      "checked":false,
+      "price1":42.90
+
+    },
+    {
+      "id":2,
+      "src":"image/02.jpg",
+      "num":1,
+      "name":"联想(Lenovo)小新Air 13.3英寸超轻薄笔记本电脑（I5-6200U 8G 256G PCIE ",
+      "color":"颜色：小新Air13【i5 金色",
+      "price":5999.00,
+       "checked":false,
+      "price1":5999.00
+    },
+    {
+      "id":3,
+      "src":"image/03.jpg",
+      "num":1,
+      "name":"联想(Lenovo)小新Air 12.2英寸超轻薄48G流量LTE笔记本电脑（6Y30 4G  ",
+      "color":"颜色：小新Air12【48G流",
+      "price":3299.00,
+       "checked":false,
+      "price1":3299.00
+    },
+    {
+      "id":4,
+      "src":"image/04.jpg",
+      "num":1,
+      "name":"联想（Lenovo）轻薄商务本 超级本 笔记本电脑 13.3英寸U31-70 I5 128G固",
+      "color":"颜色：13.3英寸U31-70 I5",
+      "price":3899.00,
+       "checked":false,
+     "price1":3899.00
+    },
+    {
+      "id":5,
+      "src":"image/05.jpg",
+      "num":1,
+      "name":"联想Yoga700/710 11.6英寸笔记本电脑超极本PC平板二合一翻转轻薄手提电",
+      "color":"颜色：6Y30/4G/256G固态/wi",
+      "price":4499.00,
+       "checked":false,
+      "price1":4499.00
+    }
+  ]
+}

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html ng-app="myApp" lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Title</title>
+		<link rel="stylesheet" href="css/index.css">
+		<script src="js/angular.min.js"></script>
+	</head>
+
+	<body ng-controller="myController">
+		<div class="goodda" ng-controller="chlid">
+			<ul class="top">
+				<li class="one"><input type="checkbox" ng-model="checked" ng-click="all()">全选</li>
+				<li>商品</li>
+				<li>单价(元)</li>
+				<li>数量</li>
+				<li>小计(元)</li>
+				<li>操作</li>
+			</ul>
+			
+			<ul class="without" >
+				<li ng-repeat="item in data" id="{{item.id}}">
+					<ul class="inside">
+						<li class="one"><input type="checkbox" ng-model="item.checked" ng-click="only()"></li>
+						<li class="two"><img ng-src="{{item.src}}" alt=""></li>
+						<li class="three" ng-bind="item.name">
+						</li>
+						<li class="four" ng-bind="item.color"></li>
+						<li class="five" ng-bind="item.price"></li>
+						<li class="six">
+							<a href="###" ng-click="cut(item)">减</a>
+							<span ng-bind="item.num"></span>
+							<a href="###" ng-click="add(item)">加</a>
+						</li>
+						<li class="seven" ng-bind="item.price1">42.90</li>
+						<li class="eight" ng-click="deleteItem(item)">删除</li>
+					</ul>
+				</li>
+			</ul>
+			<div class="allpri">
+				总价：<span ng-bind="allPrice"></span>
+			</div>
+		</div>
+	</body>
+	<script>
+		var app = angular.module('myApp', []);
+		app.controller('myController', ['$scope', '$http','$interval',function($scope, $http,$interval) {
+			$http.get('js/hello.json').success(function(data) {
+				$scope.$broadcast('data', data.goods);
+				//				$scope.goodd = data;
+			}).error(function(err) {});
+			
+			
+			 
+			
+		
+
+		}])
+		app.controller('chlid', ['$scope','$interval', function($scope,$interval) {
+			if(sessionStorage.getItem("key") == null) {
+				$scope.$on('data', function(event, data) {
+					$scope.data = data;
+					var good = JSON.stringify($scope.data)
+					sessionStorage.setItem("key", good)
+					
+				});
+			} else {
+				var jj = sessionStorage.getItem("key")
+				var dd = JSON.parse(jj)
+				$scope.data = dd
+			}
+           		
+           		        
+           		   
+				 $scope.only = function(data) {
+					var good = JSON.stringify($scope.data)
+					sessionStorage.setItem("key", good)
+				 }		
+				
+							
+					       $scope.all = function () {
+					       
+//					         	$scope.onlyChecked = this.checked
+							if( $scope.checked)
+							{
+							 	 	for(var key in $scope.data)
+								{
+									
+									$scope.data[key].checked = true;
+									var good = JSON.stringify($scope.data)
+									sessionStorage.setItem("key", good)
+								}
+								
+									
+								
+							}
+							else
+							{
+								for(var key in $scope.data)
+								{
+									$scope.data[key].checked = false;
+									var good = JSON.stringify($scope.data)
+										sessionStorage.setItem("key", good)
+								}
+									
+							}
+							
+							}	
+							
+            
+			$scope.num = 1;
+			
+			$scope.deleteItem = function(data) {
+				var deleteIndex = -1;
+				for(var index in $scope.data) {
+					if($scope.data[index].id == data.id) {
+						deleteIndex = index;
+					}
+				}
+
+				$scope.data.splice(deleteIndex, 1);
+				var good = JSON.stringify($scope.data)
+				sessionStorage.setItem("key", good)
+			}
+
+			$scope.add = function(data) {
+				this.item.num++;
+             
+					var deleteIndex = -1;
+				for(var index in $scope.data) {
+					if($scope.data[index].id == data.id) {
+						deleteIndex = index;
+					}
+				}
+				$scope.data[deleteIndex].price1 = $scope.data[deleteIndex].num*$scope.data[deleteIndex].price
+				
+				var good = JSON.stringify($scope.data)
+				sessionStorage.setItem("key", good)
+				console.log(this.item.price)
+			}
+			
+			$scope.cut = function(data) {
+				this.item.num--;
+					var deleteIndex = -1;
+				for(var index in $scope.data) {
+					if($scope.data[index].id == data.id) {
+						deleteIndex = index;
+					}
+				}
+				$scope.data[deleteIndex].price1 = $scope.data[deleteIndex].num*$scope.data[deleteIndex].price
+				var good = JSON.stringify($scope.data)
+				sessionStorage.setItem("key", good)
+
+			}
+			    $interval(function(){
+           		        var num = 0;
+   				        for( var key in $scope.data){
+   				        num = $scope.data[key].price1+num
+   				        }
+   				        
+   				     $scope.allPrice = parseInt(num*100)/100 ;
+   				     
+   				     
+   				    for( var key in $scope.data){
+   				        if(!$scope.data[key].checked) 
+   				        {
+   				        	$scope.checked = false;
+   				        	break;
+   				        }else{
+   				        	$scope.checked = true;
+   				        }
+   				        }
+   				     
+           		       },50)
+		}])
+	</script>
+
+</html>
